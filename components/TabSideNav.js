@@ -10,8 +10,16 @@ import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlin
 import myPic from './images/IMG_20221001_203749.jpg'
 import SearchIcon from '@mui/icons-material/Search';
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
+import { signOut, useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
+import { useRecoilState } from 'recoil';
+import { modalState } from '@/atoms/modalAtom';
 
 function TabSideNav() {
+  const {data: session} = useSession();
+  const router = useRouter();
+  const [open, setOpen] = useRecoilState(modalState);
+  
   return (
     <div className='fixed flex flex-col items-center pt-8 px-3 shadow-sm border-r max-w-[70px] h-screen bg-white invisible md:visible lg:visible xl:invisible z-50'>
       {/* Instagram icon */}
@@ -21,7 +29,7 @@ function TabSideNav() {
 
       {/* buttons */}
       <div className='flex flex-col justify-center mt-8 space-y-2'>
-        <button className='tabBtn' >
+        <button className='tabBtn' onClick={() => {router.push('/')}}>
           <HomeOutlinedIcon className='tabIcon' />
           
         </button>
@@ -46,12 +54,12 @@ function TabSideNav() {
           <div className='absolute h-4 w-4 top-1 left-5 text-xs bg-red-600 flex items-center justify-center rounded-full text-white'>3</div>
           
         </button>
-        <button className='tabBtn' >
+        <button className='tabBtn' onClick={()=> setOpen(true)}>
           <AddCircleOutlineOutlinedIcon className='tabIcon' />
           
         </button>
         <button className='tabBtn' >
-          <Image src={myPic} className='rounded-full h-6 w-6'/>
+          <Image onClick={signOut} src={session?.user?.image} className='rounded-full h-6 w-6' width={6} height={6}/>
           
         </button>
       </div>

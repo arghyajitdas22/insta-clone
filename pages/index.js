@@ -7,26 +7,40 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import TabSideNav from '@/components/TabSideNav'
 import BigSideNav from '@/components/BigSideNav'
+import { signIn, useSession } from 'next-auth/react'
+import Modal from '@/components/Modal'
+
+
 
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+  const {data: session} = useSession();
+  
+  
   return (
     <>
-      <Head>
-        <title>Instagram Clone</title>
-        <Image/>
-      </Head>
-      <div>
-        <Header/>
-        <Footer/>
-        
-        <TabSideNav/>
-        
-        <BigSideNav/>
-        <Feed/>
-      </div>
+      {session ?(
+      <>
+        <Modal/>
+        <Head>
+          <title>Instagram Clone</title>
+          <Image/>
+        </Head>
+        <div>
+          <Header/>
+          <Footer/>
+          
+          <TabSideNav/>
+          
+          <BigSideNav/>
+          <Feed/>
+        </div>
+      </>) : (
+        <button onClick={signIn}>Sign In</button>
+      )
+      }
     </>
   )
 }

@@ -7,21 +7,29 @@ import OndemandVideoOutlinedIcon from '@mui/icons-material/OndemandVideoOutlined
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import ForumOutlinedIcon from '@mui/icons-material/ForumOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
-import myPic from './images/IMG_20221001_203749.jpg'
+
 import SearchIcon from '@mui/icons-material/Search';
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
+import { useRecoilState } from 'recoil';
+import { modalState } from '@/atoms/modalAtom';
 
 function BigSideNav() {
+  const {data: session} = useSession();
+  const router = useRouter();
+  const [open, setOpen] = useRecoilState(modalState);
+  
   return (
     <div className='fixed flex flex-col pt-8 pl-6 pr-4 shadow-sm border-r max-w-[250px] h-screen bg-white invisible md:invisible lg:invisible xl:visible z-50'>
       {/* Instagram icon */}
       <div className='flex items-center'>
-        <FacebookRoundedIcon className='h-10 w-10'/>
+        <FacebookRoundedIcon className='h-14 w-14'/>
       </div>
 
       {/* buttons */}
       <div className='flex flex-col justify-center mt-8 space-y-2'>
-        <button className='button' >
+        <button className='button' onClick={() => {router.push('/')}} >
           <HomeOutlinedIcon className='icon' />
           <span className='info'>Home</span>
         </button>
@@ -46,12 +54,12 @@ function BigSideNav() {
           <div className='absolute h-4 w-4 top-1 left-5 text-xs bg-red-600 flex items-center justify-center rounded-full text-white'>3</div>
           <span className='info'>Notifications</span>
         </button>
-        <button className='button' >
+        <button className='button' onClick={()=> setOpen(true)}>
           <AddCircleOutlineOutlinedIcon className='icon' />
           <span className='info'>Create</span>
         </button>
         <button className='button' >
-          <Image src={myPic} className='rounded-full h-6 w-6 absolute left-[3.5px]'/>
+          <Image src={session?.user?.image} className='rounded-full h-6 w-6 absolute left-[3.5px]' width={6} height={6}/>
           <span className='info'>Profile</span>
         </button>
       </div>
