@@ -30,7 +30,7 @@ const ForYou: React.FunctionComponent<IForYouProps> = (props) => {
   return (
     <div className="flex flex-col gap-y-4 mt-5">
       {users.map((user) => (
-        <div className="flex justify-between">
+        <div className="flex justify-between" key={user.userName}>
           <div className="flex gap-x-2">
             <img
               src={user.avatar}
