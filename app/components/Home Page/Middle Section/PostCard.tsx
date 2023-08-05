@@ -15,7 +15,7 @@ interface IPostCardProps {
   username?: string | null;
   createdAt: string;
   image: string;
-  caption?: string | null;
+  caption: string | null;
   userId?: string;
   postId: string;
 }
@@ -76,7 +76,7 @@ const PostCard: React.FunctionComponent<IPostCardProps> = async ({
         </div>
       </div>
 
-      {caption?.length > 0 && (
+      {caption && (
         <div className="flex items-center gap-x-1 mb-2">
           <span className="text-[14px] text-[#000] font-semibold">
             {username}
