@@ -9,7 +9,11 @@ export async function POST(request: Request) {
   const { postId, userId } = body;
 
   const isLiked = await getIfLiked(postId);
-  // const user = await getCurrentUser();
+  const currentUser = await getCurrentUser();
+
+  if (!currentUser) {
+    return NextResponse.error();
+  }
 
   if (isLiked) {
     const like = await prisma.like.delete({
@@ -23,7 +27,7 @@ export async function POST(request: Request) {
     const like = await prisma.like.create({
       data: {
         postId: postId,
-        userId: userId,
+        userId: currentUser.id,
       },
     });
 

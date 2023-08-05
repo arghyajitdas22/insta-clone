@@ -6,13 +6,17 @@ export async function POST(request: Request) {
   const body = await request.json();
   const { image, caption } = body;
 
-  const user = await getCurrentUser();
+  const currentUser = await getCurrentUser();
+
+  if (!currentUser) {
+    return NextResponse.error();
+  }
 
   const post = await prisma.post.create({
     data: {
       caption,
       image,
-      userId: user?.id,
+      userId: currentUser.id,
     },
   });
 
