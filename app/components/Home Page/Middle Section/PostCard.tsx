@@ -88,7 +88,7 @@ const PostCard: React.FunctionComponent<IPostCardProps> = async ({
       )}
 
       {comments.map((comment) => (
-        <div className="flex gap-1 items-center">
+        <div className="flex gap-1 items-center" key={comment.id}>
           <span className="text-[#000] text-[12px] font-semibold">
             {username}
           </span>
