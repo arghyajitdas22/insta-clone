@@ -1,0 +1,18 @@
+import * as React from "react";
+import Sidenav from "../Home Page/Sidenav/Sidenav";
+import CreatePost from "./CreatePost";
+
+interface IMainProps {}
+
+const Main: React.FunctionComponent<IMainProps> = (props) => {
+  return (
+    <main className="flex max-w-[100vw] w-full relative">
+      <Sidenav page="create" />
+      <div className="max-w-[calc(100vw-244px)] w-full absolute right-0">
+        <CreatePost />
+      </div>
+    </main>
+  );
+};
+
+export default Main;
