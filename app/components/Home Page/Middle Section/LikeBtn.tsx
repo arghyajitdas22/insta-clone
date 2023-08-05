@@ -8,11 +8,13 @@ import { useRouter } from "next/navigation";
 interface ILikeBtnProps {
   hasLiked: boolean;
   postId: string;
+  userId?: string;
 }
 
 const LikeBtn: React.FunctionComponent<ILikeBtnProps> = ({
   hasLiked,
   postId,
+  userId,
 }) => {
   const [isLoading, setIsLoading] = React.useState(false);
   const router = useRouter();
@@ -22,6 +24,7 @@ const LikeBtn: React.FunctionComponent<ILikeBtnProps> = ({
 
     const data = {
       postId,
+      userId,
     };
 
     axios

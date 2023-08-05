@@ -66,7 +66,7 @@ const PostCard: React.FunctionComponent<IPostCardProps> = async ({
 
       <div className="flex items-center justify-between mb-2 px-1">
         <div className="flex items-center gap-x-3">
-          <LikeBtn hasLiked={hasLiked} postId={postId} />
+          <LikeBtn hasLiked={hasLiked} postId={postId} userId={userId} />
           <Comment />
           <Share />
         </div>
